@@ -1,0 +1,21 @@
+<div>
+    <div>
+        {{hello}}
+    </div>
+    
+    <div>
+        <button class="btn btn-xs" (click)="incrementClicked()">
+            Click me
+        </button>
+        <br/>
+        <button class="btn btn-xs" (dblclick)="incrementClicked()">
+            double click me
+        </button>
+        <br />
+        the button was clicked {{clicked}} times
+
+        <br />
+        <input [value]="clicked" />
+    </div>
+    <app-users />
+</div>
