@@ -2,12 +2,12 @@
     <div>
         {{hello}}
     </div>
-    
+
     <div>
         <button class="btn btn-xs" (click)="incrementClicked()">
             Click me
         </button>
-        <br/>
+        <br />
         <button class="btn btn-xs" (dblclick)="incrementClicked()">
             double click me
         </button>
@@ -15,38 +15,40 @@
         the button was clicked {{clicked}} times
 
         <br />
-        <input [(ngModel)]="clicked" type="number"/>
+        <input [(ngModel)]="clicked" type="number" />
     </div>
 
     <div>
-    @if(clicked > 5){
-            this is the conditionally displayed block
+        @if(clicked > 5){
+        this is the conditionally displayed block
         }
     </div>
 
     <div>
         @for (num of arr; track $index) {
-            <ul>
+        <ul>
             this a number {{num}}, {{$index}}
-            </ul>
+        </ul>
         }
     </div>
 
-    <div class="cursor-context-menu bg-blue-500 w-[300px] h-[300px]" (contextmenu)="toggleContextMenu(true, $event)"
-    (mouseenter)="onMouseMove(true, $event)" (mouseleave)="onMouseMove(false, $event)" (mousemove)="onMouseMove(true, $event)">
-
+    <div class="w-[300px] h-[300px]" [ngClass]="tooltipInfo.willShow ? 'bg-red-500' : 'bg-green-500'"
+        (contextmenu)="toggleContextMenu(true, $event)" (mouseenter)="onMouseMove(true, $event)"
+        (mouseleave)="onMouseMove(false, $event)" (mousemove)="onMouseMove(true, $event)">
     </div>
- @if (contextMenuInfo.willShow) {
-<div class="fixed z-50 bg-base-100 shadow rounded-box p-2" [style.left.px]="contextMenuInfo.pageX" [style.top.px]="contextMenuInfo.pageY" (click)="contextClick()">
+    @if (contextMenuInfo.willShow) {
+    <div class="fixed z-50 bg-base-100 shadow rounded-box p-2" [style.left.px]="contextMenuInfo.pageX"
+        [style.top.px]="contextMenuInfo.pageY" (click)="contextClick()">
         this is the context menu hat
     </div>
-}
-@if (tooltipInfo.willShow) {
-    <div class="fixed z-50 bg-base-100 shadow rounded-box p-2" [style.left.px]="tooltipInfo.pageX" [style.top.px]="tooltipInfo.pageY" (click)="contextClick()">
-            this is the tooltip
-        </div>
     }
-    
-        
+    @if (tooltipInfo.willShow) {
+    <div class="fixed z-50 bg-base-100 shadow rounded-box p-2" [style.left.px]="tooltipInfo.pageX"
+        [style.top.px]="tooltipInfo.pageY" (click)="contextClick()">
+        this is the tooltip
+    </div>
+    }
+
+
     <app-users />
 </div>

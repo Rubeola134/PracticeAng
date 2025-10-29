@@ -1,10 +1,11 @@
 import { Component, HostListener } from '@angular/core';
 import { Users } from "../users/users";
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [Users, FormsModule],
+  imports: [Users, FormsModule, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
