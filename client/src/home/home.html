@@ -1,4 +1,4 @@
-<div>
+<!--<div>
     <div>
         {{hello}}
     </div>
@@ -48,7 +48,17 @@
         this is the tooltip
     </div>
     }
-
-
-    <app-users />
 </div>
+-->
+<button class="btn" (click)="setShowUsers(!user.willShowUser)">Toggle Show Users</button>
+<button class="btn text-white" [ngClass]="(userService.color$ | async)" (click)="userService.toggleColor()">Toggle Color</button>
+@if (user.willShowUser) {
+    <ol class="list-decimal list-inside">
+        @for (name of user.userList; track $index) {
+            <li><app-users [userIndex]="$index" /></li>
+        }
+      </ol>
+    }
+      
+
+

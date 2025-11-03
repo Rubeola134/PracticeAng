@@ -1,7 +1,9 @@
-import { Component, HostListener } from '@angular/core';
-import { Users } from "../users/users";
+import { Component, HostListener, inject, Input, OnInit } from '@angular/core';
+import { Users } from "./users/users";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../app/services/user-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +11,43 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
+export class Home implements OnInit{
   protected hello: string = "Hello World"
   protected clicked: number = 0;
   protected willShowBlock: boolean = true;
+  protected user = inject(UserService)
   protected arr: number[] = [1,2,3,4,5]
   protected contextClicked: boolean = false;
+
+//   userList = [
+//     "Tucker Anselm",
+//     "Elmira Keddy",
+//     "Eveline Grandisson",
+//     "Berry Wildes",
+//     "Quintus Hastings",
+//     "Harp Antonignetti",
+//     "Vite Playfair",
+//     "Noelle Dowears",
+//     "Delcine Lubbock",
+//     "Auberta Skerrett",
+//     "Constantin Cosgry",
+//     "Loleta Grenfell",
+//     "Nadeen Matchett",
+//     "Elli Galliver",
+//     "Gayla Hawtin",
+//     "Liam Antwis",
+//     "Merilyn Baumford",
+//     "Lilas Colquyte",
+//     "Roi Kinworthy",
+//     "Patin Flecknoe",
+//     "Etienne Vedeneev",
+//     "Diane Evesque",
+//     "Ashlee Amoore",
+//     "Julissa Bandey",
+//     "Merridie McPartling",
+//     "Nanete Kitlee"        
+// ]
+
   contextMenuInfo: any = {
     pageX: 0,
     pageY: 0,
@@ -25,6 +58,22 @@ export class Home {
     pageY: 0,
     willShow: false
   };
+
+  constructor(protected userService: UserService) {
+
+  }
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe({
+      next: (res: any) => {
+        console.log(res)
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+      }
+    });
+    console.log("component has been created gangylang")
+  }
+
 
 
 
@@ -67,5 +116,16 @@ export class Home {
     this.tooltipInfo.pageY =  event.pageY + 15;
     console.log(event);
   }
+
+  setShowUsers(showUsers: boolean){
+    this.user.willShowUser = showUsers;
+  }
+
+  
+
+  // removeUser(index: number){
+  //   this.userService.userList.splice(index, 1)
+  // }
+
 
 }

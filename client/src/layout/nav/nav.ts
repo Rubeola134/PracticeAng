@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject , OnInit} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { UserService } from '../../app/services/user-service';
 
 @Component({
   selector: 'app-nav',
@@ -7,6 +8,9 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './nav.html',
   styleUrl: './nav.css',
 })
-export class Nav {
-  protected router = inject(Router)
+export class Nav{
+
+  protected router = inject(Router);
+  protected user = inject(UserService)
+
 }

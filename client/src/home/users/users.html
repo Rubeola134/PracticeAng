@@ -1,0 +1,22 @@
+
+    @if (!willEdit) {
+        {{userService.userList[userIndex]}}
+        <button class="btn" (click)="userService.removeUser(userIndex)">
+            Delete
+        </button>
+        <button class="btn" (click)="editMode(true, userService.userList[userIndex])">
+            Edit
+        </button>
+    }
+
+    @if (willEdit) {
+        <input [(ngModel)]="userForEdit" type="text">
+        <button class="btn" (click)="editMode(false)">
+            Cancel
+        </button>
+        <button class="btn" (click)="submitEdit()">
+            Save
+        </button>
+    }
+
+
