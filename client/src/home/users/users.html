@@ -1,27 +1,27 @@
 
-    @if (!willEdit && !addMode) {
-        Full Name: {{userService.userList[userIndex].fullName}}
+    @if (!willEdit && !addMode && !displayUser) {
+        Full Name: {{userForDisplay.fullName}}
         <br />
 
-        Username: {{userService.userList[userIndex].username}}
+        Username: {{userForDisplay.username}}
         <br />
 
-        City: {{userService.userList[userIndex].city}}
+        City: {{userForDisplay.city}}
         <br />
 
-        Favorite Animal: {{userService.userList[userIndex].favoriteAnimal}}
+        Favorite Animal: {{userForDisplay.favoriteAnimal}}
         <br />
 
-        Favorite Color: {{userService.userList[userIndex].favoriteColor}}
+        Favorite Color: {{userForDisplay.favoriteColor}}
         <br />
 
-        Gender: {{userService.userList[userIndex].gender}}
+        Gender: {{userForDisplay.gender}}
         <br />
 
-        <button class="btn" (click)="userService.removeUser(userService.userList[userIndex].userId)">
+        <button class="btn" (click)="userService.removeUser(userForDisplay.userId)">
             Delete
         </button>
-        <button class="btn" (click)="editMode(true, userService.userList[userIndex])">
+        <button class="btn" (click)="editMode(true, userForDisplay)">
             Edit
         </button>
     }

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Nav } from '../layout/nav/nav';
 
@@ -8,6 +8,11 @@ import { Nav } from '../layout/nav/nav';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit{
   protected router = inject(Router);
+
+  
+  ngOnInit(): void {
+
+  }
 }

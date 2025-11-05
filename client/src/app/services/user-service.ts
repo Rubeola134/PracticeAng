@@ -57,6 +57,7 @@ export class UserService {
 //     "Nanete Kitlee"        
 // ];
 
+
 getUsers(searchText: string = ""){
   if(!searchText){
     return this.http.get<User[]>("http://localhost:3000/user/users")
@@ -65,6 +66,9 @@ getUsers(searchText: string = ""){
   }
 }
 
+getSingleUser(userId: number){
+  return this.http.get<User>("http://localhost:3000/user/users/" + userId)
+}
 removeUser(userId: number){
   if(confirm("U sure u want to delete?")){
 

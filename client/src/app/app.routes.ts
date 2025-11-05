@@ -10,7 +10,7 @@ import { Users } from '../home/users/users';
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'}, 
     {path: 'home',  component: Home},
-    {path: 'home/userId',  component: Users},
+    {path: 'home/:userId',  component: Users},
     {path: 'about',  component: About},
     {path: 'contact',  component: Contact},
     {path: 'login',  component: Login},
