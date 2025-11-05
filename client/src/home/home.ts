@@ -1,9 +1,11 @@
-import { Component, HostListener, inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Users } from "./users/users";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../app/services/user-service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../app/types/User';
+import { Observer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +13,15 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit{
+export class Home implements OnInit, OnDestroy{
   protected hello: string = "Hello World"
   protected clicked: number = 0;
   protected willShowBlock: boolean = true;
-  protected user = inject(UserService)
   protected arr: number[] = [1,2,3,4,5]
   protected contextClicked: boolean = false;
-
+  addindNewUser: boolean = false;
+  usersHasChangedSubscription: Subscription = new Subscription();
+  userSearch: string = "";
 //   userList = [
 //     "Tucker Anselm",
 //     "Elmira Keddy",
@@ -63,16 +66,42 @@ export class Home implements OnInit{
 
   }
   ngOnInit(): void {
-    this.userService.getUsers().subscribe({
-      next: (res: any) => {
-        console.log(res)
-      },
-      error: (err: HttpErrorResponse) => {
-        console.log(err);
+    this.getUsers();
+    this.usersHasChangedSubscription = this.userService.usersHaveChanged.subscribe((changesCanceled: boolean) =>{
+      if(!changesCanceled){
+        this.getUsers();
       }
-    });
-    console.log("component has been created gangylang")
+      this.addindNewUser = false;
+    })
   }
+  ngOnDestroy(): void {
+    this.usersHasChangedSubscription.unsubscribe();
+  }
+
+  addNewUser(){
+    this.addindNewUser = true;
+  }
+
+  getUsers(){
+    let responseObject: Partial<Observer<User[]>> = {
+        next: (res: User[]) => {
+          this.userService.userList = res;
+          // res.forEach((row: User) => {
+          //   console.log(row.username + " " + row.city)
+          // })
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+        }
+      
+    }
+    if(!this.userSearch){
+      this.userService.getUsers().subscribe(responseObject);
+    }else{
+    }
+    this.userService.getUsers(this.userSearch).subscribe(responseObject);
+  }
+
 
 
 
@@ -118,7 +147,7 @@ export class Home implements OnInit{
   }
 
   setShowUsers(showUsers: boolean){
-    this.user.willShowUser = showUsers;
+    this.userService.willShowUser = showUsers;
   }
 
   

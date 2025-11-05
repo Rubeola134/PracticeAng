@@ -50,11 +50,18 @@
     }
 </div>
 -->
-<button class="btn" (click)="setShowUsers(!user.willShowUser)">Toggle Show Users</button>
+<!-- <button class="btn" (click)="setShowUsers(!userService.willShowUser)">Toggle Show Users</button> -->
 <button class="btn text-white" [ngClass]="(userService.color$ | async)" (click)="userService.toggleColor()">Toggle Color</button>
-@if (user.willShowUser) {
+<button class="btn" (click)="addNewUser()">Add New User</button>
+<input [(ngModel)]="userSearch">
+<button class="btn" (click)="getUsers()">Update List</button>
+
+@if (addindNewUser) {
+    <app-users [addMode]="true" />
+}
+@if (userService.willShowUser) {
     <ol class="list-decimal list-inside">
-        @for (name of user.userList; track $index) {
+        @for (name of userService.userList; track $index) {
             <li><app-users [userIndex]="$index" /></li>
         }
       </ol>

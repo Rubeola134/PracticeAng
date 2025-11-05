@@ -1,22 +1,66 @@
 
-    @if (!willEdit) {
-        {{userService.userList[userIndex]}}
-        <button class="btn" (click)="userService.removeUser(userIndex)">
+    @if (!willEdit && !addMode) {
+        Full Name: {{userService.userList[userIndex].fullName}}
+        <br />
+
+        Username: {{userService.userList[userIndex].username}}
+        <br />
+
+        City: {{userService.userList[userIndex].city}}
+        <br />
+
+        Favorite Animal: {{userService.userList[userIndex].favoriteAnimal}}
+        <br />
+
+        Favorite Color: {{userService.userList[userIndex].favoriteColor}}
+        <br />
+
+        Gender: {{userService.userList[userIndex].gender}}
+        <br />
+
+        <button class="btn" (click)="userService.removeUser(userService.userList[userIndex].userId)">
             Delete
         </button>
         <button class="btn" (click)="editMode(true, userService.userList[userIndex])">
             Edit
         </button>
     }
+<form (ngSubmit)="submitEdit()">
 
-    @if (willEdit) {
-        <input [(ngModel)]="userForEdit" type="text">
-        <button class="btn" (click)="editMode(false)">
+    @if (willEdit || addMode) {
+        <div>
+            Full Name:
+            <input name="fullName" [(ngModel)]="userForEdit.fullName">
+            <br />
+    
+            Username: 
+            <input name="username" [(ngModel)]="userForEdit.username">
+            <br />
+    
+            City: 
+            <input name="city" [(ngModel)]="userForEdit.city">
+            <br />
+    
+            Favorite Animal:
+            <input name="favoriteAnimal" [(ngModel)]="userForEdit.favoriteAnimal">
+            <br />
+    
+            Favorite Color:
+            <input name="favoriteColor" [(ngModel)]="userForEdit.favoriteColor">
+            <br />
+    
+            Gender: 
+            <input name="gender" [(ngModel)]="userForEdit.gender">
+            <br />
+        </div>
+
+        <button class="btn" type="button" (click)="editMode(false)">
             Cancel
         </button>
-        <button class="btn" (click)="submitEdit()">
+        <button class="btn" type="submit">
             Save
         </button>
     }
 
 
+</form>
